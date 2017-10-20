@@ -19,6 +19,7 @@ public abstract class Persona {
     private String estadoCivil;
     private String ciudad;
     private String direccion;
+    private String pais;
 
     public Persona() {
     }
@@ -249,6 +250,20 @@ public abstract class Persona {
      */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    /**
+     * @return the pais
+     */
+    public String getPais() {
+        return pais;
+    }
+
+    /**
+     * @param pais the pais to set
+     */
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
 }
