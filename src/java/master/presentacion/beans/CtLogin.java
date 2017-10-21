@@ -46,6 +46,7 @@ public class CtLogin implements Serializable {
 
             httpServletRequest.getSession().setAttribute("UsuarioLogueado", usuario);
             httpServletRequest.getSession().setAttribute("Datos", usuario.getNombres() + " " + usuario.getApellidos());
+            httpServletRequest.getSession().setAttribute("idUsuario", usuario.getIdUsuario());
 
             lstRoles = FRolUsuario.obtenerRolesDadoUsuario(usuario.getIdPersona());
             if (lstRoles.size() > 1) {
@@ -55,6 +56,20 @@ public class CtLogin implements Serializable {
                 RolUsuario ru = lstRoles.get(0);
                 httpServletRequest.getSession().setAttribute("idRol", ru.getRol().getIdRol());
                 httpServletRequest.getSession().setAttribute("rol", ru.getRol().getRol());
+
+                /// privilegios
+                httpServletRequest.getSession().setAttribute("privSeleccionar", ru.getPrivSeleccionar());
+                httpServletRequest.getSession().setAttribute("privInsertar", ru.getPrivInsertar());
+                httpServletRequest.getSession().setAttribute("privEditar", ru.getPrivEditar());
+                httpServletRequest.getSession().setAttribute("privEliminar", ru.getPrivEliminar());
+
+                /// testo de la funcion
+                System.out.println("Rol: " + ru.getRol().getRol() + "\n"
+                        + "\n priv insertar: " + ru.getPrivSeleccionar()
+                        + "\n priv editar: " + ru.getPrivEditar()
+                        + "\n priv seleccionar: " + ru.getPrivSeleccionar()
+                        + "\n priv eliminar: " + ru.getPrivEliminar());
+
                 faceContext.getExternalContext().redirect("privado/home.jsf");
             } else {
                 Util.addErrorMessage("El Usuario no tiene roles activos en el sistema.");
@@ -79,7 +94,7 @@ public class CtLogin implements Serializable {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
             session.invalidate();
 
-            fc.getExternalContext().redirect("/" + Configuracion.getString("Aplicacion")+"/index.jsf");
+            fc.getExternalContext().redirect("/" + Configuracion.getString("Aplicacion") + "/index.jsf");
             fc.getExternalContext().invalidateSession();
         } catch (Exception ex) {
             Util.addErrorMessage(ex.getMessage().replace("\n", "").replace("Hint:", ""));
