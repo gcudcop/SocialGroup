@@ -23,6 +23,7 @@ public class FUsuario {
             while (resultSet.next()) {
                 usuario = new Usuario();
                 usuario.setIdPersona(resultSet.getInt("sr_id_persona"));
+                usuario.setIdUsuario(resultSet.getInt("sr_id_persona"));
                 usuario.setCedula(resultSet.getString("chv_cedula"));
                 usuario.setRuc(resultSet.getString("chv_ruc"));
                 usuario.setPasaporte(resultSet.getString("chv_pasaporte"));
@@ -49,8 +50,7 @@ public class FUsuario {
         }
         return usuario;
     }
-    
-    
+
     public static Usuario obtenerUsuarioDadoCodigo(int codigo) throws Exception {
         Usuario usuario = null;
         AccesoDatos accesoDatos;
@@ -61,11 +61,12 @@ public class FUsuario {
             accesoDatos = new AccesoDatos();
             sql = "SELECT * FROM sch_admin.f_obtener_usuario_dado_codigo(?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
-            prstm.setInt(1, codigo);            
+            prstm.setInt(1, codigo);
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             while (resultSet.next()) {
                 usuario = new Usuario();
                 usuario.setIdPersona(resultSet.getInt("sr_id_persona"));
+                usuario.setIdUsuario(resultSet.getInt("sr_id_persona"));
                 usuario.setCedula(resultSet.getString("chv_cedula"));
                 usuario.setRuc(resultSet.getString("chv_ruc"));
                 usuario.setPasaporte(resultSet.getString("chv_pasaporte"));

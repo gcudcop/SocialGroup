@@ -47,6 +47,8 @@ public class CtLogin implements Serializable {
             usuario = FUsuario.loginUsuario(txtUsuario, txtPassword);
             Util.addSuccessMessage("Bienvenido: " + usuario.getNombres() + " " + usuario.getApellidos());
 
+            System.out.println("Id Usuario: "+usuario.getIdPersona());
+            
             httpServletRequest.getSession().setAttribute("UsuarioLogueado", usuario);
             httpServletRequest.getSession().setAttribute("Datos", usuario.getNombres() + " " + usuario.getApellidos());
             httpServletRequest.getSession().setAttribute("idUsuario", usuario.getIdUsuario());
@@ -69,11 +71,13 @@ public class CtLogin implements Serializable {
                 httpServletRequest.getSession().setAttribute("privEliminar", ru.getPrivEliminar());
 
                 /// testo de la funcion
-                System.out.println("Rol: " + ru.getRol().getRol() + "\n"
+                System.out.println("Id Rol: " + ru.getRol().getIdRol()
+                        + "Rol: " + ru.getRol().getRol() + "\n"
                         + "\n priv insertar: " + ru.getPrivSeleccionar()
                         + "\n priv editar: " + ru.getPrivEditar()
                         + "\n priv seleccionar: " + ru.getPrivSeleccionar()
-                        + "\n priv eliminar: " + ru.getPrivEliminar());
+                        + "\n priv eliminar: " + ru.getPrivEliminar()
+                );
 
                 faceContext.getExternalContext().redirect("privado/home.jsf");
             } else {
@@ -102,7 +106,8 @@ public class CtLogin implements Serializable {
             httpServletRequest.getSession().setAttribute("privEliminar", rolUsuarioSel.getPrivEliminar());
 
             /// testo de la funcion
-            System.out.println("Rol: " + rolUsuarioSel.getRol().getRol() + "\n"
+            System.out.println("Id Rol: " + rolUsuarioSel.getRol().getIdRol()
+                    + "Rol: " + rolUsuarioSel.getRol().getRol() + "\n"
                     + "\n priv insertar: " + rolUsuarioSel.getPrivSeleccionar()
                     + "\n priv editar: " + rolUsuarioSel.getPrivEditar()
                     + "\n priv seleccionar: " + rolUsuarioSel.getPrivSeleccionar()

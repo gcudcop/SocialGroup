@@ -45,8 +45,10 @@ public class CtEstadoCuenta implements Serializable {
         try {
             int idUsuario = (int) httpServletRequest.getSession().getAttribute("idUsuario");
             sessionUsuario = FUsuario.obtenerUsuarioDadoCodigo(idUsuario);
+            System.out.println("Id usuario: " + idUsuario
+                    + "Usuario session: " + sessionUsuario.getNick());
         } catch (Exception e) {
-            System.out.println("public void insertarMejora() dice: " + e.getMessage());
+            System.out.println("public void obtenerSession() dice: " + e.getMessage());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
 
