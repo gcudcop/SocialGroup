@@ -17,13 +17,13 @@
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15" reflow="true" rowKey="#{estado.idEstadoCuenta}"
                                      editable="true" selection="#{ctEstadoCuenta.estadoCuentaSel}" selectionMode="single">
-                            <p:column headerText="Codigo" width="10%">
+                            <p:column headerText="Codigo" width="5%">
                                 <p:outputLabel value="#{estado.idEstadoCuenta}"/>
                             </p:column>
                             <p:column headerText="Estado" width="10%">
                                 <p:outputLabel value="#{estado.estado}"/>
                             </p:column>
-                            <p:column headerText="Descripción" width="15%">
+                            <p:column headerText="Descripción" width="20%">
                                 <p:outputLabel value="#{estado.descripcion}"/>
                             </p:column>
                             <p:column headerText="Fecha de registro" width="10%">

@@ -22,7 +22,7 @@
             <center>
                 <p:commandButton value="Guardar"
                                  action="#{ctEstadoCuenta.insertarEstadoCuenta()}"
-                                 update="frmInsertar"/>
+                                 update="frmPrincipal:tblEstados,frmInsertar"/>
                 <p:commandButton value="Cancelar"
                                  update="frmPrincipal:tblEstados"
                                  onclick="PF('dlgInsertar').hide();"
