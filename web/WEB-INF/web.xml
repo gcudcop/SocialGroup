@@ -37,7 +37,12 @@
     
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.cudco</url-pattern>
+        <url-pattern>*.geo</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jane</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>

@@ -8,7 +8,7 @@ import java.util.List;
 import master.logica.entidades.RolUsuario;
 
 public class FRolUsuario {
-
+    
     public static List<RolUsuario> obtenerRolesDadoUsuario(int idUsuario) throws Exception {
         List<RolUsuario> lst = new ArrayList<>();
         AccesoDatos accesoDatos;
@@ -22,7 +22,7 @@ public class FRolUsuario {
             stm = accesoDatos.creaPreparedSmt(consulta);
             stm.setInt(1, idUsuario);
             resultSet = accesoDatos.ejecutaPrepared(stm);
-
+            
             while (resultSet.next()) {
                 ru = new RolUsuario();
                 ru.getRol().setIdRol(resultSet.getInt("int_id_rol"));
@@ -36,9 +36,37 @@ public class FRolUsuario {
                 lst.add(ru);
             }
         } catch (Exception e) {
-            System.out.println("obtenerBusesDadoLinea dice: " + e.getMessage());
             throw e;
         }
         return lst;
+    }
+    
+    public static RolUsuario obtenerRolUsuario(int idRol, int idUsuario) throws Exception {
+        RolUsuario ru = null;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT * FROM sch_admin.f_obtener_rol_usuario_dado_codigos(?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, idRol);
+            prstm.setInt(2, idUsuario);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            while (resultSet.next()) {
+                ru = new RolUsuario();
+                ru.setRol(FRol.obtenerRolDadoCodigo(resultSet.getInt("int_id_rol")));
+                ru.setUsuario(FUsuario.obtenerUsuarioDadoCodigo(resultSet.getInt("int_id_usuario")));
+                ru.setPrivInsertar(resultSet.getInt("int_priv_insertar"));
+                ru.setPrivEditar(resultSet.getInt("int_priv_editar"));
+                ru.setPrivEliminar(resultSet.getInt("int_priv_eliminar"));
+                ru.setPrivSeleccionar(resultSet.getInt("int_priv_seleccionar"));
+            }
+            accesoDatos.desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
+        return ru;
     }
 }
