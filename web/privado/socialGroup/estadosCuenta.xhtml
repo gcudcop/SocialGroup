@@ -29,22 +29,24 @@
                             <p:column headerText="Fecha de registro" width="10%">
                                 <p:outputLabel value="#{estado.fechaRegistro}"/>
                             </p:column>
-                            <p:column headerText="Usuario creador" width="10%">
-                                <p:outputLabel value="#{estado.sessionUsuario.nick}"/>
+                            <p:column headerText="Usuario creador" width="10%" style="text-align: center">
+                                <p:outputLabel value="#{estado.sessionUsuario.nombres} #{estado.sessionUsuario.apellidos}"/>
                             </p:column>
 
-                            <p:column headerText="Editar" width="5%">
+                            <p:column headerText="Editar" width="5%" style="text-align: center">
                                 <p:commandButton icon="ui-icon-pencil"
                                                  title="Editar"
-                                                 >
+                                                 onclick="PF('dlgEditar').show();"
+                                                 update="frmEditar">
                                     <f:setPropertyActionListener value="#{estado}" target="#{ctEstadoCuenta.estadoCuentaSel}"/>
                                 </p:commandButton>
                             </p:column>
 
-                            <p:column headerText="Eliminar" width="5%">
-                                <p:commandButton icon="ui-icon-pencil"
+                            <p:column headerText="Eliminar" width="5%" style="text-align: center">
+                                <p:commandButton icon="ui-icon-delete-forever"
                                                  title="Eliminar"
-                                                 >
+                                                 onclick="PF('dlgEliminar').show();"
+                                                 update="frmEliminar">
                                     <f:setPropertyActionListener value="#{estado}" target="#{ctEstadoCuenta.estadoCuentaSel}"/>
                                 </p:commandButton>
                             </p:column>
@@ -66,6 +68,8 @@
             <img src="../../resources/gifs/cargando_2.gif" alt=""/>
         </p:dialog>
 
+        <ui:include src="dlgEditarEstadoCuenta.xhtml"/>  
         <ui:include src="dlgNuevoEstadoCuenta.xhtml"/>  
+        <ui:include src="dlgEliminarEstadoCuenta.xhtml"/>  
     </ui:define>
 </ui:composition>

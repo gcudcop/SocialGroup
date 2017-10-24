@@ -18,7 +18,7 @@ public class Cuenta {
 
     public Cuenta() {
         estadoCuenta = new EstadoCuenta();
-        referidoCuenta = new Cuenta();
+
         pif = new Pif();
         persona = new Usuario();
         sessionUsuario = new Usuario();

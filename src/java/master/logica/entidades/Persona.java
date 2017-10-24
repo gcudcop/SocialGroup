@@ -20,8 +20,10 @@ public abstract class Persona {
     private String ciudad;
     private String direccion;
     private String pais;
+    private TipoPersona tipoPersona;
 
     public Persona() {
+        tipoPersona = new TipoPersona();
     }
 
     public Persona(int idPersona, String cedula, String ruc, String pasaporte, String nombres, String apellidos, String telefono, String celular, String foto, Date fechaNacimiento, int edad, String genero, String estadoCivil, String ciudad, String direccion) {
@@ -264,6 +266,20 @@ public abstract class Persona {
      */
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    /**
+     * @return the tipoPersona
+     */
+    public TipoPersona getTipoPersona() {
+        return tipoPersona;
+    }
+
+    /**
+     * @param tipoPersona the tipoPersona to set
+     */
+    public void setTipoPersona(TipoPersona tipoPersona) {
+        this.tipoPersona = tipoPersona;
     }
 
 }
