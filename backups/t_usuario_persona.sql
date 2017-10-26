@@ -132,4 +132,64 @@ $body$
 
 
 
-    
+create or replace function sch_admin.f_registrar_usuario_visitante(_chv_cedula_pasaporte character varying,
+                                                            _chv_ruc character varying,                                                            
+                                                            _chv_nombres character varying,
+                                                            _chv_apellidos character varying,
+                                                            _chv_telefono character varying,
+                                                            _chv_celular character varying,                                                            
+                                                            _dt_fecha_nacimiento date,
+                                                            _ch_genero character,
+                                                            _chv_estado_civil character varying,
+                                                            _chv_ciudad character varying,
+                                                            _chv_direccion character varying,
+                                                            _chv_pais character varying,
+                                                            _id_tipo_persona integer,
+                                                            _chv_nick character varying,
+                                                            _chv_mail character varying,
+                                                            _chv_password character varying)
+returns text as
+$body$
+declare
+    msg text;
+    msg1 text;
+    CODIGO_USUARIO integer;
+    CODIGO_ROL integer;
+begin
+    begin
+        msg1 = sch_admin.f_insertar_persona_generico(_chv_cedula_pasaporte,
+                                                    _chv_ruc,                                                            
+                                                    _chv_nombres,
+                                                    _chv_apellidos,
+                                                    _chv_telefono,
+                                                    _chv_celular,                                                            
+                                                    _dt_fecha_nacimiento,
+                                                    _ch_genero,
+                                                    _chv_estado_civil,
+                                                    _chv_ciudad,
+                                                    _chv_direccion,
+                                                    _chv_pais,
+                                                    _id_tipo_persona,
+                                                    _chv_nick,
+                                                    _chv_mail,
+                                                    _chv_password);
+        
+        SELECT sr_id_persona INTO CODIGO_USUARIO 
+        FROM sch_admin.t_persona
+        WHERE chv_cedula = _chv_cedula_pasaporte;
+        
+        SELECT sr_id_rol INTO CODIGO_ROL
+        FROM sch_admin.t_rol
+        WHERE UPPER(chv_rol)='VISITANTE';
+        
+        insert into sch_admin.t_rol_usuario(int_id_rol,int_id_usuario)
+        values(CODIGO_ROL, CODIGO_USUARIO);
+
+        msg='Usuario registrado exitosamente.';
+        
+    end;
+    return msg;
+end;
+$body$
+    language plpgsql volatile 
+        

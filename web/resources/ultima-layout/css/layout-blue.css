@@ -1971,3 +1971,8 @@ body.layout-compact {
     padding: 14px 16px; }
     body.layout-compact .layout-wrapper .topbar .topbar-right .topbar-items > li > a i {
       font-size: 20px; } }
+
+#registro{
+    width: 600px;
+    margin: 0 auto;
+}

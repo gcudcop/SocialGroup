@@ -93,3 +93,6 @@ begin
 end;
 $body$
     language plpgsql volatile;    
+
+
+alter table sch_social_group.t_cuenta add column chv_imagen character varying;

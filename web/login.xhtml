@@ -86,7 +86,10 @@ and open the template in the editor.
                                                          action="#{ctLogin.login()}"/>
                                         <hr />                                        
                                         <p:commandButton value="Registrarse"
-                                                         class="btn btn-default btn-block"/>
+                                                         class="btn btn-default btn-block"
+                                                         action="registro.jsf?faces-redirect=true"
+                                                         process="@this"
+                                                         />
                                     </div>
                                 </div>
                             </h:form>

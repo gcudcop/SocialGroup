@@ -93,4 +93,83 @@ public class FUsuario {
         }
         return usuario;
     }
+    
+    
+    
+    public static String registrarUsuario(Usuario usuario) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_admin.f_insertar_persona_generico(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setString(1, usuario.getCedula());
+            prstm.setString(2, usuario.getRuc());
+            prstm.setString(3, usuario.getNombres());
+            prstm.setString(4, usuario.getApellidos());
+            prstm.setString(5, usuario.getTelefono());
+            prstm.setString(6, usuario.getCelular());
+            prstm.setDate(7, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+            prstm.setString(8, usuario.getGenero());
+            prstm.setString(9, usuario.getEstadoCivil());
+            prstm.setString(10, usuario.getCiudad());
+            prstm.setString(11, usuario.getDireccion());
+            prstm.setString(12, usuario.getPais());
+            prstm.setInt(13, usuario.getTipoPersona().getIdTipoPersona());
+            prstm.setString(14, usuario.getNick());
+            prstm.setString(15, usuario.getMail());
+            prstm.setString(16, usuario.getPassword());            
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    
+    public static String registrarUsuarioVisitante(Usuario usuario) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_admin.f_registrar_usuario_visitante(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setString(1, usuario.getCedula());
+            prstm.setString(2, usuario.getRuc());
+            prstm.setString(3, usuario.getNombres());
+            prstm.setString(4, usuario.getApellidos());
+            prstm.setString(5, usuario.getTelefono());
+            prstm.setString(6, usuario.getCelular());
+            prstm.setDate(7, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+            prstm.setString(8, usuario.getGenero());
+            prstm.setString(9, usuario.getEstadoCivil());
+            prstm.setString(10, usuario.getCiudad());
+            prstm.setString(11, usuario.getDireccion());
+            prstm.setString(12, usuario.getPais());
+            prstm.setInt(13, usuario.getTipoPersona().getIdTipoPersona());
+            prstm.setString(14, usuario.getNick());
+            prstm.setString(15, usuario.getMail());
+            prstm.setString(16, usuario.getPassword());            
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
