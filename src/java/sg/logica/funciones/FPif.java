@@ -31,6 +31,7 @@ public class FPif {
                 pif.setFechaRegistro(resultSet.getTimestamp("ts_fecha_registro"));
                 pif.setFechaBaja(resultSet.getTimestamp("ts_fecha_baja"));
                 pif.setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(resultSet.getInt("int_id_usuario")));
+                pif.setFoto(resultSet.getString("chv_imagen"));
                 lst.add(pif);
 
             }
@@ -63,6 +64,7 @@ public class FPif {
                 pif.setFechaRegistro(resultSet.getTimestamp("ts_fecha_registro"));
                 pif.setFechaBaja(resultSet.getTimestamp("ts_fecha_baja"));
                 pif.setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(resultSet.getInt("int_id_usuario")));
+                pif.setFoto(resultSet.getString("chv_imagen"));
             }
             accesoDatos.desconectar();
         } catch (Exception e) {
@@ -96,8 +98,7 @@ public class FPif {
             throw e;
         }
     }
-    
-    
+
     public static String editarPif(Pif pif) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -122,8 +123,8 @@ public class FPif {
         } catch (Exception e) {
             throw e;
         }
-        }
-    
+    }
+
     public static String eliminarPif(Pif pif) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -146,10 +147,7 @@ public class FPif {
         } catch (Exception e) {
             throw e;
         }
-    
+
     }
-    
-    
-    
-    
+
 }

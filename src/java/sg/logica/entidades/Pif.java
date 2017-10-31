@@ -22,6 +22,7 @@ public class Pif {
     private Timestamp fechaRegistro;
     private Timestamp fechaBaja;
     private Usuario sessionUsuario;
+    private String foto;
 
     public Pif() {
         sessionUsuario = new Usuario();
@@ -137,6 +138,20 @@ public class Pif {
      */
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
+    }
+
+    /**
+     * @return the foto
+     */
+    public String getFoto() {
+        return foto;
+    }
+
+    /**
+     * @param foto the foto to set
+     */
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
 }
