@@ -31,7 +31,7 @@ import sg.logica.funciones.FEstadoCuenta;
 public class CtPif implements Serializable {
 
     private Pif objPif;
-    private Pif PifSel;
+    private Pif pifSel;
     private List<Pif> lstPif;
     private HttpServletRequest httpServletRequest;
     private FacesContext facesContext;
@@ -39,7 +39,7 @@ public class CtPif implements Serializable {
 
     public CtPif() {
         objPif = new Pif();
-        PifSel = new Pif();
+        pifSel = new Pif();
         sessionUsurario = new Usuario();
         facesContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -75,45 +75,47 @@ public class CtPif implements Serializable {
 
     public void insertarPif() {
         try {
-            objPif.setSessionUsuario(sessionUsurario);
-            String msg = FPif.insertarPif(objPif);
-            Util.addSuccessMessage(msg);
+            //objPif.getSessionUsuario();
+            getObjPif().setSessionUsuario(getSessionUsurario());
+            //objPif.setSessionUsuario(sessionUsuario);
+            String msg = FPif.insertarPif(getObjPif());
             objPif = new Pif();
-            obtenerPif();
-            resetearDataTable("frmPrincipal:tblEstados");
+            Util.addSuccessMessage(msg);
+            resetearDataTable("frmPrincipal:tblPif");
             DefaultRequestContext.getCurrentInstance().execute("PF('dlgInsertar').hide()");
+            obtenerPif();
         } catch (Exception e) {
-            System.out.println("public void insertarEstadoCuenta() dice: " + e.getMessage());
+            System.out.println("public void insertarPif() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
     }
 
     public void editarPif() {
         try {
-            PifSel.setSessionUsuario(sessionUsurario);
-            String msg = FPif.editarPif(objPif);
+            // PifSel.setSessionUsuario(sessionUsuario);
+            String msg = FPif.editarPif(pifSel);
             Util.addSuccessMessage(msg);
-            PifSel = new Pif();
-            obtenerPif();
-            resetearDataTable("frmPrincipal:tblEstados");
+            pifSel = new Pif();
+            resetearDataTable("frmPrincipal:tblPif");
             DefaultRequestContext.getCurrentInstance().execute("PF('dlgEditar').hide()");
+            obtenerPif();
         } catch (Exception e) {
-            System.out.println("public void editarEstadoCuenta() dice: " + e.getMessage());
+            System.out.println("public void editarPif() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
     }
 
     public void eliminarPif() {
         try {
-            PifSel.setSessionUsuario(sessionUsurario);
-            String msg = FPif.eliminarPif(objPif);
+            //PifSel.setSessionUsuario(sessionUsuario);
+            String msg = FPif.eliminarPif(pifSel);
             Util.addSuccessMessage(msg);
-            PifSel = new Pif();
-            obtenerPif();
-            resetearDataTable("frmPrincipal:tblEstados");
+            pifSel = new Pif();
+            resetearDataTable("frmPrincipal:tblPif");
             DefaultRequestContext.getCurrentInstance().execute("PF('dlgEliminar').hide()");
+            obtenerPif();
         } catch (Exception e) {
-            System.out.println("public void eliminarEstadoCuenta() dice: " + e.getMessage());
+            System.out.println("public void eliminarPif() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
     }
@@ -127,9 +129,6 @@ public class CtPif implements Serializable {
         this.objPif = objPif;
     }
 
-    public void setPifSel(Pif PifSel) {
-        this.PifSel = PifSel;
-    }
 
     public void setLstPif(List<Pif> lstPif) {
         this.lstPif = lstPif;
@@ -151,9 +150,7 @@ public class CtPif implements Serializable {
         return objPif;
     }
 
-    public Pif getPifSel() {
-        return PifSel;
-    }
+  
 
     public List<Pif> getLstPif() {
         return lstPif;
@@ -171,12 +168,14 @@ public class CtPif implements Serializable {
         return sessionUsurario;
     }
 
-    public CtPif(Pif PifSel, List<Pif> lstPif, HttpServletRequest httpServletRequest, FacesContext facesContext, Usuario sessionUsurario) {
-        this.PifSel = PifSel;
-        this.lstPif = lstPif;
-        this.httpServletRequest = httpServletRequest;
-        this.facesContext = facesContext;
-        this.sessionUsurario = sessionUsurario;
+    public Pif getPifSel() {
+        return pifSel;
     }
+
+    public void setPifSel(Pif pifSel) {
+        this.pifSel = pifSel;
+    }
+
+    
 
 }

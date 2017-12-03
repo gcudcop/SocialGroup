@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import master.logica.entidades.RolUsuario;
 import master.logica.entidades.Usuario;
 
 public class FUsuario {
@@ -268,4 +269,74 @@ public class FUsuario {
             throw e;
         }
     }
+    //<editor-fold defaultstate="collapsed" desc=" Funcion para foto usuario">
+         
+    public static String actualizarFotoUsuario(int codigo, String foto) throws Exception {
+        //Usuario usuario = null;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        String respuesta = " ";
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT * FROM sch_admin.f_actulizar_foto_usuario(?,?);";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, codigo);
+            prstm.setString(2, foto);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Actualizar Datos de Perfil Usuario">
+    
+    public static String actualizarDatosUsuarioPerfil(Usuario objUsuario) throws Exception {
+        AccesoDatos accesoDatos;
+        String strRespuesta;
+        String sql;
+        int intIdRol, strClave, strRolDescrip;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT sch_admin.f_actualizar_persona_no_foto(?,?,?,?,?,?,?,?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            
+            prstm.setString(1, objUsuario.getCedula());
+            prstm.setString(2, objUsuario.getNombres());
+            prstm.setString(3, objUsuario.getApellidos());
+            prstm.setString(4, objUsuario.getTelefono());
+            prstm.setString(5, objUsuario.getCelular());            
+            prstm.setString(6, objUsuario.getEstadoCivil());
+            prstm.setString(7, objUsuario.getCiudad());
+            prstm.setString(8, objUsuario.getDireccion());
+            prstm.setString(9, objUsuario.getPais());
+            prstm.setInt(10, objUsuario.getIdUsuario());
+            prstm.setString(11, objUsuario.getNick());
+            //prstm.setString(12, objRolUsuario.getUsuario().getMail().toLowerCase());
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                strRespuesta = resultSet.getString(1);
+                return strRespuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    //</editor-fold>  
+    
+    
 }
