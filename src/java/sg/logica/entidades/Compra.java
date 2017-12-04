@@ -8,10 +8,6 @@ package sg.logica.entidades;
 import java.sql.Timestamp;
 import master.logica.entidades.Usuario;
 
-/**
- *
- * @author Geovanny Cudco
- */
 public class Compra {
 
     private int idCompra;
