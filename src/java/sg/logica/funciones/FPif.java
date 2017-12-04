@@ -81,7 +81,8 @@ public class FPif {
         ResultSet resultSet;
         try {
             accesoDatos = new AccesoDatos();
-            sql = "select * from sch_social_group.f_obtener_pif_dado_id(?,?,?,?)";
+            //sql = "select * from sch_social_group.f_obtener_pif_dado_id(?,?,?,?)";
+            sql = "select * from sch_social_group.f_insertar_pif(?,?,?,?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
             prstm.setString(1, pif.getPif());
             prstm.setString(2, pif.getDescripcion());
@@ -99,7 +100,7 @@ public class FPif {
         }
     }
 
-    public static String editarPif(Pif pif) throws Exception {
+ public static String editarPif(Pif pif) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
         String sql;
@@ -113,6 +114,8 @@ public class FPif {
             prstm.setString(2, pif.getDescripcion());
             prstm.setDouble(3, pif.getCosto());
             prstm.setInt(4, pif.getSessionUsuario().getIdPersona());
+            prstm.setInt(5, pif.getIdPif());
+            
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
@@ -123,7 +126,7 @@ public class FPif {
         } catch (Exception e) {
             throw e;
         }
-    }
+        }
 
     public static String eliminarPif(Pif pif) throws Exception {
         String respuesta;

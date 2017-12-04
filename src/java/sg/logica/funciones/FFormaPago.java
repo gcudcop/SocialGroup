@@ -1,6 +1,7 @@
 package sg.logica.funciones;
 
 import accesoDatos.AccesoDatos;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,4 +37,96 @@ public class FFormaPago {
         }
         return lst;
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Ingresar FORMA PAGO">
+ public static String insertarFormaPago(FormaPago fp) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_insertar_forma_pago(?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setString(1, fp.getFormaPago());
+            prstm.setString(2, fp.getDescripcion());
+            prstm.setInt(3, fp.getSessionUsuario().getIdUsuario());
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+ 
+   
+
+
+    //</editor-fold>
+
+  //<editor-fold defaultstate="collapsed" desc="MODIFICAR FORMA PAGO">
+  public static String editarFormaPago(FormaPago fp) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_actualizar_forma_pago(?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setString(1, fp.getFormaPago());
+            prstm.setString(2, fp.getDescripcion());
+            prstm.setInt(3, fp.getSessionUsuario().getIdUsuario());
+            //prstm.setInt(3, fp.getSessionUsuario().getIdUsuario());
+            prstm.setInt(4, fp.getIdFormaPago());
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+ 
+ 
+ //</editor-fold>
+  
+  //<editor-fold defaultstate="collapsed" desc="ELIMINAAR FORMA PAGO">
+   public static String eliminarFormaPago(FormaPago fp) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_social_group.f_eliminar_forma_pago(?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, fp.getSessionUsuario().getIdPersona());
+            prstm.setInt(2, fp.getIdFormaPago());
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+   //</editor-fold>
+    
+    
+    
 }
