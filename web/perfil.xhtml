@@ -13,12 +13,12 @@
                         <h3>Perfil de usuario</h3>
                     </center>
                     <h:form id="frmEditarUsuario">
-                        <p:growl id="msjs" autoUpdate="true" life="10000"></p:growl>
+                        <p:growl id="msjs" autoUpdate="true" life="10000" escape="true"></p:growl>
                         <p:panelGrid columns="2" layout="grid" rendered="#{ctDatos.selectUsuario!= null}" styleClass="ui-panelgrid-blank form-group">
-                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank " >
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                 <p:panel id="panelFoto" style="width: 90%">
                                     <center>
-                                        <h:graphicImage id="idFoto" value="/cfoto?id=#{cdatos.selectUsuario.foto}" alt="Foto"/>
+                                        <h:graphicImage id="idFoto" value="/cfoto?id=#{ctDatos.selectUsuario.foto}" alt="Foto" width="50%"/>
                                     </center>
                                     <center>
                                         <p:commandButton id="btnCambiarF" value="Cambiar Logo" icon="ui-icon-pencil" update=":frmNuevaFoto" oncomplete="PF('wgNuevaFoto').show()"></p:commandButton>
@@ -26,7 +26,7 @@
                                 </p:panel>
                             </p:panelGrid>
                             <h:panelGrid columns="1"   >
-
+                                <!--
                                 <div class="ui-g-12"> 
                                     <h:panelGroup styleClass="md-inputfield">
                                         <p:inputText id="txtCodigoSociedad" value="#{ctDatos.selecRolUsuario.rol.rol}" 
@@ -37,6 +37,7 @@
                                         <label>Perfil</label>
                                     </h:panelGroup> 
                                 </div>
+                                -->
                                 <div class="ui-g-12"> 
                                     <h:panelGroup styleClass="md-inputfield">
                                         <p:inputText id="personacedula" 
@@ -45,7 +46,7 @@
                                                      readonly="true" required="true" style="width:100%"
                                                      requiredMessage="Ruc de la Sociedad requerido">                                 
                                         </p:inputText> 
-                                        <label>Cédula</label>
+                                        <label>Cédula/Pasaporte</label>
                                     </h:panelGroup> 
                                 </div>
                                 <div class="ui-g-12"> 
@@ -83,7 +84,7 @@
                                             <f:validateLength minimum="10"/>
                                         </p:inputText>
                                         <label>Celular</label>
-                                        </h:panelGroup>
+                                    </h:panelGroup>
                                 </div> 
                                 <div class="ui-g-12">
                                     <h:panelGroup styleClass="md-inputfield">
@@ -95,7 +96,7 @@
                                             <f:validateLength minimum="10"/>
                                         </p:inputText>
                                         <label>Teléfono</label>
-                                        </h:panelGroup>
+                                    </h:panelGroup>
 
 
                                 </div> 
@@ -122,17 +123,17 @@
                                     </h:panelGroup> 
                                 </div>
 
-                                
-                                
+
+
                                 <div class="ui-g-12"> 
                                     <h:panelGroup styleClass="md-inputfield">
                                         <p:inputText  id="personacorreo" value="#{ctDatos.selectUsuario.mail}" title="Correo Electrónico" required="true" 
-                                                  requiredMessage="El Correo Electrónico es requerido!" 
-                                                  validatorMessage="Correo Electrónico, formato inválido. Ejm: info@info.com">
-                                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                                    </p:inputText>
-                                    <label >* Correo Electrónico</label>
-                                </h:panelGroup>
+                                                      requiredMessage="El Correo Electrónico es requerido!" 
+                                                      validatorMessage="Correo Electrónico, formato inválido. Ejm: info@info.com">
+                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                        </p:inputText>
+                                        <label >* Correo Electrónico</label>
+                                    </h:panelGroup>
                                 </div>
                                 <center>
                                     <h:panelGrid columns="2">
@@ -160,4 +161,5 @@
         </div>    
     </ui:define>
 </ui:composition>
+
 

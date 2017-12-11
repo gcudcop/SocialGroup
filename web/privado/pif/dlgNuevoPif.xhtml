@@ -11,15 +11,15 @@
         <h:form id="frmInsertar">                     
             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank form-group">
                 <p:outputLabel value="Pif"/>
-                <p:inputText value="#{ctPif.pifSel.pif}"                                                          
+                <p:inputText value="#{ctPif.objPif.pif}"                                                       
                              required="true" 
                              requiredMessage="el nombre del Paquete es obligatorio"/>
                 <p:outputLabel value="Descripción"/>
-                <p:inputTextarea value="#{ctPif.pifSel.descripcion}"                             
+                <p:inputTextarea value="#{ctPif.objPif.descripcion}"                             
                              required="true" 
                              requiredMessage="La descripción del Paquete es obligatorio"/>                
                 <p:outputLabel value="Valor"/>
-                <p:inputTextarea value="#{ctPif.pifSel.costo}"                             
+                <p:inputTextarea value="#{ctPif.objPif.costo}"                             
                              required="true" 
                              requiredMessage="El valor del Paquete es obligatorio"/>                
                 

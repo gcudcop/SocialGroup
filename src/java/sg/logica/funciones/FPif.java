@@ -11,6 +11,7 @@ import sg.logica.entidades.Pif;
 
 public class FPif {
 
+    //<editor-fold defaultstate="collapsed" desc="Obtener PIF ACTIVAs">
     public static List<Pif> obtenerPifActivas() throws Exception {
         List<Pif> lst = new ArrayList<>();
         AccesoDatos accesoDatos;
@@ -40,6 +41,9 @@ public class FPif {
         }
         return lst;
     }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="obtener PIF dado Codigo">
 
     public static Pif obtenerPifDadoId(int codigo) throws Exception {
 
@@ -72,8 +76,11 @@ public class FPif {
         }
         return pif;
     }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="insertar PIF">
 
-    public static String insertarPif(Pif pif) throws Exception {
+    public static String insertarPif(Pif pif, int id) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
         String sql;
@@ -81,13 +88,12 @@ public class FPif {
         ResultSet resultSet;
         try {
             accesoDatos = new AccesoDatos();
-            //sql = "select * from sch_social_group.f_obtener_pif_dado_id(?,?,?,?)";
             sql = "select * from sch_social_group.f_insertar_pif(?,?,?,?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
             prstm.setString(1, pif.getPif());
             prstm.setString(2, pif.getDescripcion());
             prstm.setDouble(3, pif.getCosto());
-            prstm.setInt(4, pif.getSessionUsuario().getIdPersona());
+            prstm.setInt(4, id);
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
@@ -99,8 +105,11 @@ public class FPif {
             throw e;
         }
     }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="editar PIF">
 
- public static String editarPif(Pif pif) throws Exception {
+    public static String editarPif(Pif pif) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
         String sql;
@@ -115,7 +124,7 @@ public class FPif {
             prstm.setDouble(3, pif.getCosto());
             prstm.setInt(4, pif.getSessionUsuario().getIdPersona());
             prstm.setInt(5, pif.getIdPif());
-            
+
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
@@ -126,7 +135,7 @@ public class FPif {
         } catch (Exception e) {
             throw e;
         }
-        }
+    }
 
     public static String eliminarPif(Pif pif) throws Exception {
         String respuesta;
@@ -136,7 +145,7 @@ public class FPif {
         ResultSet resultSet;
         try {
             accesoDatos = new AccesoDatos();
-            sql = "select * from sch_social_group.f_eliminar_pif(?,?,?)";
+            sql = "select * from sch_social_group.f_eliminar_pif(?,?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
             prstm.setInt(1, pif.getSessionUsuario().getIdPersona());
             prstm.setInt(2, pif.getIdPif());
@@ -152,6 +161,9 @@ public class FPif {
         }
 
     }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc=" Comprar PIFIniciador">
 
     public static String comprarPifIniciador(int idTitular, int idPif, int idFormaPago) throws Exception {
         String respuesta;
@@ -178,5 +190,5 @@ public class FPif {
         }
 
     }
-
+    //</editor-fold>
 }

@@ -8,23 +8,16 @@ import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseStream;
-import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
 import javax.servlet.http.HttpServletRequest;
 import master.logica.entidades.Usuario;
 import master.logica.funciones.FUsuario;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.context.DefaultRequestContext;
-import recursos.ObtenerIPs;
 import recursos.Util;
 import sg.logica.entidades.Pif;
 import sg.logica.funciones.FPif;
-import sg.logica.entidades.EstadoCuenta;
-import sg.logica.funciones.FEstadoCuenta;
+
 
 @ManagedBean
 @ViewScoped
@@ -51,19 +44,24 @@ public class CtPif implements Serializable {
     public void init() {
         obtenerSession();
     }
-
-   public void obtenerSession() {
+    //<editor-fold defaultstate="collapsed" desc="Obtener session">
+    public void obtenerSession() {
         try {
-            int intIdUsuario = (int) getHttpServletRequest().getSession().getAttribute("idUsuario");
-            setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(intIdUsuario));
-            System.out.println("Usuario Logueado: " + getSessionUsuario().getApellidos());
+            int idUsuario = (int) getHttpServletRequest().getSession().getAttribute("idUsuario");
+            setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(idUsuario));
+            System.out.println("Id usuario: " + idUsuario
+                    + "Usuario session: " + getSessionUsuario().getNick());
         } catch (Exception e) {
             System.out.println("public void obtenerSession() dice: " + e.getMessage());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, message);
+
         }
     }
 
+     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Obtener PIF">    
     public void obtenerPif() {
         try {
             lstPif = FPif.obtenerPifActivas();
@@ -72,27 +70,32 @@ public class CtPif implements Serializable {
             Util.addErrorMessage(e.getMessage());
         }
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="insertar PIF">
     public void insertarPif() {
         try {
-            objPif.getSessionUsuario();
-            //getObjPif().setSessionUsuario(getSessionUsurario());
-            //objPif.setSessionUsuario(sessionUsuario);
-            String msg = FPif.insertarPif(objPif);
+           
+            System.out.println("Id Usuario: " + getSessionUsuario().getIdPersona());         
+            String msg = FPif.insertarPif(getObjPif(), getSessionUsuario().getIdPersona());
             objPif = new Pif();
+            obtenerPif();
             Util.addSuccessMessage(msg);
             resetearDataTable("frmPrincipal:tblPif");
             DefaultRequestContext.getCurrentInstance().execute("PF('dlgInsertar').hide()");
-            obtenerPif();
+            
+            
         } catch (Exception e) {
             System.out.println("public void insertarPif() dice: " + e.getMessage());
             Util.addErrorMessage(e.getMessage());
         }
     }
-
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Editar PIF">
     public void editarPif() {
         try {
-            // PifSel.setSessionUsuario(sessionUsuario);
+            pifSel.setSessionUsuario(sessionUsuario);
             String msg = FPif.editarPif(pifSel);
             Util.addSuccessMessage(msg);
             pifSel = new Pif();
@@ -104,10 +107,13 @@ public class CtPif implements Serializable {
             Util.addErrorMessage(e.getMessage());
         }
     }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Eliminar PIF">
 
     public void eliminarPif() {
         try {
-            //PifSel.setSessionUsuario(sessionUsuario);
+            pifSel.setSessionUsuario(sessionUsuario);
             String msg = FPif.eliminarPif(pifSel);
             Util.addSuccessMessage(msg);
             pifSel = new Pif();
@@ -119,10 +125,16 @@ public class CtPif implements Serializable {
             Util.addErrorMessage(e.getMessage());
         }
     }
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Getter and setters">
     public void resetearDataTable(String id) {
         DataTable table = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent(id);
         table.reset();
+    }
+
+    public Pif getObjPif() {
+        return objPif;
     }
 
     public void setObjPif(Pif objPif) {
@@ -168,10 +180,8 @@ public class CtPif implements Serializable {
     public void setSessionUsuario(Usuario sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
-    
-    
-    
-    
+
+   //</editor-fold>
     
      }
 

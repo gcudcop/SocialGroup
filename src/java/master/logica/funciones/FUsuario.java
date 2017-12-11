@@ -10,6 +10,8 @@ import master.logica.entidades.Usuario;
 
 public class FUsuario {
 
+    public static Usuario selectUsuario;
+
     public static Usuario loginUsuario(String correo, String clave) throws Exception {
         Usuario usuario = null;
         AccesoDatos accesoDatos;
@@ -71,6 +73,52 @@ public class FUsuario {
             while (resultSet.next()) {
                 usuario = new Usuario();
                 usuario.setIdPersona(resultSet.getInt("sr_id_persona"));
+                usuario.setIdUsuario(resultSet.getInt("sr_id_persona"));
+                usuario.setCedula(resultSet.getString("chv_cedula"));
+                usuario.setRuc(resultSet.getString("chv_ruc"));
+                usuario.setPasaporte(resultSet.getString("chv_pasaporte"));
+                usuario.setNombres(resultSet.getString("chv_nombres"));
+                usuario.setApellidos(resultSet.getString("chv_apellidos"));
+                usuario.setCelular(resultSet.getString("chv_celular"));
+                usuario.setTelefono(resultSet.getString("chv_telefono"));
+                usuario.setFoto(resultSet.getString("chv_foto"));
+                usuario.setFechaNacimiento(resultSet.getDate("dt_fecha_nacimiento"));
+                usuario.setGenero(resultSet.getString("ch_genero"));
+                usuario.setEstadoCivil(resultSet.getString("chv_estado_civil"));
+                usuario.setCiudad(resultSet.getString("chv_ciudad"));
+                usuario.setDireccion(resultSet.getString("chv_direccion"));
+                usuario.setNick(resultSet.getString("chv_nick"));
+                usuario.setMail(resultSet.getString("chv_mail"));
+                usuario.setPassword(resultSet.getString("chv_password"));
+                usuario.setFechaRegistro(resultSet.getTimestamp("ts_fecha_registro"));
+                usuario.setFechaBaja(resultSet.getTimestamp("ts_fecha_registro"));
+                usuario.setEstadoLogico(resultSet.getString("ch_estado_logico"));
+                usuario.setValidado(resultSet.getString("ch_validado"));
+                usuario.setFechaValidacion(resultSet.getTimestamp("ts_fecha_validacion"));
+            }
+            accesoDatos.desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
+        return usuario;
+    }
+    
+     public static Usuario obtenerUsuarioDadoId(int intIdUsuario) throws Exception {
+        Usuario usuario;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT * FROM sch_admin.f_obtener_usuario_dado_codigo(?);";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setInt(1, intIdUsuario);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            usuario = new Usuario();
+            while (resultSet.next()) {
+                usuario.setIdPersona(resultSet.getInt("sr_id_persona"));
+                //usuario.setApellidos(resultSet.getString(sql));
                 usuario.setIdUsuario(resultSet.getInt("sr_id_persona"));
                 usuario.setCedula(resultSet.getString("chv_cedula"));
                 usuario.setRuc(resultSet.getString("chv_ruc"));
@@ -321,8 +369,9 @@ public class FUsuario {
             prstm.setString(7, objUsuario.getCiudad());
             prstm.setString(8, objUsuario.getDireccion());
             prstm.setString(9, objUsuario.getPais());
-            prstm.setInt(10, objUsuario.getIdUsuario());
-            prstm.setString(11, objUsuario.getNick());
+            //prstm.setInt(10, objUsuario.getIdUsuario());
+            prstm.setString(10, objUsuario.getNick());
+            prstm.setString(10, objUsuario.getMail());
             //prstm.setString(12, objRolUsuario.getUsuario().getMail().toLowerCase());
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {

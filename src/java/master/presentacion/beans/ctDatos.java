@@ -22,7 +22,6 @@ import recursos.Util;
 
 @ManagedBean
 @RequestScoped
-
 public class ctDatos implements Serializable{
     
     //private String codigo;
@@ -91,9 +90,10 @@ public class ctDatos implements Serializable{
         int intIdRol = (int) httpServletRequest.getSession().getAttribute("idRol");
         try {
             //selecRolUsuario = FRolUsuario.obtenerRolUsuario(intIdRol, intIdUsuario);
-            selectUsuario = FUsuario.obtenerUsuarioDadoCodigo(intIdUsuario);
+           selectUsuario = FUsuario.obtenerUsuarioDadoId(intIdUsuario);
+            //setStrEliminarFoto(selectUsuario.getFoto());
+            //setStrEliminarFoto(selectUsuario.getUsuario().getFoto());
             setStrEliminarFoto(selectUsuario.getFoto());
-            //setStrEliminarFoto(selecRolUsuario.getUsuario().getFoto());
             
         } catch (Exception e) {
             Util.addErrorMessage(e, getStrMensaje());

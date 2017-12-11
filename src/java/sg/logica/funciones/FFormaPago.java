@@ -38,7 +38,7 @@ public class FFormaPago {
         return lst;
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Ingresar FORMA PAGO">
+  //<editor-fold defaultstate="collapsed" desc="Ingresar FORMA PAGO">
  public static String insertarFormaPago(FormaPago fp) throws Exception {
         String respuesta;
         AccesoDatos accesoDatos;
@@ -52,6 +52,7 @@ public class FFormaPago {
             prstm.setString(1, fp.getFormaPago());
             prstm.setString(2, fp.getDescripcion());
             prstm.setInt(3, fp.getSessionUsuario().getIdUsuario());
+           
             resultSet = accesoDatos.ejecutaPrepared(prstm);
             if (resultSet.next()) {
                 respuesta = resultSet.getString(1);
