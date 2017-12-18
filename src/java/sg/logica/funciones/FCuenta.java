@@ -124,4 +124,37 @@ public class FCuenta {
             throw e;
         }
     }
+    
+    
+    public static Cuenta obtenerCuenta(String codigo) throws Exception {
+        Cuenta cuenta = null;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "SELECT * FROM sch_admin.f_obtener_cuenta_dado_codigo_referido(?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setString(1, codigo);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            while (resultSet.next()) {
+               cuenta = new Cuenta();
+               cuenta.setIdCuenta(resultSet.getInt("sr_id_cuenta"));
+               cuenta.setCodigo(resultSet.getString("chv_codigo"));
+               cuenta.getPif().setIdPif(resultSet.getInt("int_id_pif"));
+            }
+            accesoDatos.desconectar();
+        } catch (Exception e) {
+            throw e;
+        }
+        return cuenta;
+    }
+    
+    
+    
+    
+    
+    
+    
 }

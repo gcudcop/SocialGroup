@@ -39,9 +39,9 @@ public class CtActvarCuentas implements Serializable {
 
     public void obtenerSession() {
         try {
-            System.out.println("Id usuario logueado: " + sessionUsuario.getIdUsuario());
-            setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(sessionUsuario.getIdUsuario()));
-            System.out.println("Usuario Logueado: " + getSessionUsuario().getApellidos());
+            int intIdUsuario = (int) getHttpServletRequest().getSession().getAttribute("idUsuario");
+            setSessionUsuario(FUsuario.obtenerUsuarioDadoCodigo(intIdUsuario));
+            System.out.println("Usuario Logueado: " + getSessionUsuario().getApellidos() + "id: " + getSessionUsuario().getIdUsuario());
         } catch (Exception e) {
             System.out.println("public void obtenerSession() dice: " + e.getMessage());
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());

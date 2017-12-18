@@ -29,6 +29,7 @@ public class CtComprarPif implements Serializable {
     private Pif pifSel;
     private int bnd;
     private int idFormaPago;
+    private String codigoReferido;
 
     public CtComprarPif() {
         pifSel = new Pif();
@@ -199,6 +200,20 @@ public class CtComprarPif implements Serializable {
      */
     public void setIdFormaPago(int idFormaPago) {
         this.idFormaPago = idFormaPago;
+    }
+
+    /**
+     * @return the codigoReferido
+     */
+    public String getCodigoReferido() {
+        return codigoReferido;
+    }
+
+    /**
+     * @param codigoReferido the codigoReferido to set
+     */
+    public void setCodigoReferido(String codigoReferido) {
+        this.codigoReferido = codigoReferido;
     }
 
 }
