@@ -102,8 +102,8 @@ public class FUsuario {
         }
         return usuario;
     }
-    
-     public static Usuario obtenerUsuarioDadoId(int intIdUsuario) throws Exception {
+
+    public static Usuario obtenerUsuarioDadoId(int intIdUsuario) throws Exception {
         Usuario usuario;
         AccesoDatos accesoDatos;
         String sql;
@@ -318,7 +318,7 @@ public class FUsuario {
         }
     }
     //<editor-fold defaultstate="collapsed" desc=" Funcion para foto usuario">
-         
+
     public static String actualizarFotoUsuario(int codigo, String foto) throws Exception {
         //Usuario usuario = null;
         AccesoDatos accesoDatos;
@@ -344,9 +344,8 @@ public class FUsuario {
         }
     }
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="Actualizar Datos de Perfil Usuario">
-    
     public static String actualizarDatosUsuarioPerfil(Usuario objUsuario) throws Exception {
         AccesoDatos accesoDatos;
         String strRespuesta;
@@ -359,12 +358,12 @@ public class FUsuario {
             accesoDatos = new AccesoDatos();
             sql = "SELECT sch_admin.f_actualizar_persona_no_foto(?,?,?,?,?,?,?,?,?,?,?)";
             prstm = accesoDatos.creaPreparedSmt(sql);
-            
+
             prstm.setString(1, objUsuario.getCedula());
             prstm.setString(2, objUsuario.getNombres());
             prstm.setString(3, objUsuario.getApellidos());
             prstm.setString(4, objUsuario.getTelefono());
-            prstm.setString(5, objUsuario.getCelular());            
+            prstm.setString(5, objUsuario.getCelular());
             prstm.setString(6, objUsuario.getEstadoCivil());
             prstm.setString(7, objUsuario.getCiudad());
             prstm.setString(8, objUsuario.getDireccion());
@@ -384,8 +383,90 @@ public class FUsuario {
             throw e;
         }
     }
-    
     //</editor-fold>  
-    
-    
+
+    public static List<Usuario> obtenerUsuariosDadoLider(int codigoLider) throws Exception {
+        List<Usuario> lst = new ArrayList<>();
+        AccesoDatos accesoDatos;
+        PreparedStatement stm;
+        Usuario usuario;
+        ResultSet resultSet;
+        String consulta;
+        try {
+            accesoDatos = new AccesoDatos();
+            consulta = "select * from sch_admin.f_obtener_cuentas_dado_lider(?)";
+            stm = accesoDatos.creaPreparedSmt(consulta);
+            stm.setInt(1, codigoLider);
+            resultSet = accesoDatos.ejecutaPrepared(stm);
+            while (resultSet.next()) {
+                usuario = new Usuario();
+                usuario.setIdPersona(resultSet.getInt("sr_id_persona"));
+                usuario.setIdUsuario(resultSet.getInt("sr_id_persona"));
+                usuario.setCedula(resultSet.getString("chv_cedula"));
+                usuario.setRuc(resultSet.getString("chv_ruc"));
+                usuario.setPasaporte(resultSet.getString("chv_pasaporte"));
+                usuario.setNombres(resultSet.getString("chv_nombres"));
+                usuario.setApellidos(resultSet.getString("chv_apellidos"));
+                usuario.setCelular(resultSet.getString("chv_celular"));
+                usuario.setTelefono(resultSet.getString("chv_telefono"));
+                usuario.setFoto(resultSet.getString("chv_foto"));
+                usuario.setFechaNacimiento(resultSet.getDate("dt_fecha_nacimiento"));
+                usuario.setGenero(resultSet.getString("ch_genero"));
+                usuario.setEstadoCivil(resultSet.getString("chv_estado_civil"));
+                usuario.setCiudad(resultSet.getString("chv_ciudad"));
+                usuario.setDireccion(resultSet.getString("chv_direccion"));
+                usuario.setNick(resultSet.getString("chv_nick"));
+                usuario.setMail(resultSet.getString("chv_mail"));
+                usuario.setPassword(resultSet.getString("chv_password"));
+                usuario.setFechaRegistro(resultSet.getTimestamp("ts_fecha_registro"));
+                usuario.setFechaBaja(resultSet.getTimestamp("ts_fecha_registro"));
+                usuario.setEstadoLogico(resultSet.getString("ch_estado_logico"));
+                usuario.setValidado(resultSet.getString("ch_validado"));
+                usuario.setFechaValidacion(resultSet.getTimestamp("ts_fecha_validacion"));
+                usuario.setPathCedula(resultSet.getString("chv_path_deula"));
+                lst.add(usuario);
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return lst;
+    }
+
+    public static String registrarUsuarioVisitanteDadoLider(Usuario usuario, int codigoLider) throws Exception {
+        String respuesta;
+        AccesoDatos accesoDatos;
+        String sql;
+        PreparedStatement prstm;
+        ResultSet resultSet;
+        try {
+            accesoDatos = new AccesoDatos();
+            sql = "select * from sch_admin.f_registrar_cuenta_dado_lider(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            prstm = accesoDatos.creaPreparedSmt(sql);
+            prstm.setString(1, usuario.getCedula());
+            prstm.setString(2, usuario.getNombres());
+            prstm.setString(3, usuario.getApellidos());
+            prstm.setString(4, usuario.getTelefono());
+            prstm.setString(5, usuario.getCelular());
+            prstm.setDate(6, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+            prstm.setString(7, usuario.getGenero());
+            prstm.setString(8, usuario.getEstadoCivil());
+            prstm.setString(9, usuario.getCiudad());
+            prstm.setString(10, usuario.getDireccion());
+            prstm.setString(11, usuario.getPais());
+            prstm.setString(12, usuario.getNick());
+            prstm.setString(13, usuario.getMail());
+            prstm.setString(14, usuario.getPassword());
+            prstm.setString(15, usuario.getPathCedula());
+            prstm.setInt(16, codigoLider);
+            resultSet = accesoDatos.ejecutaPrepared(prstm);
+            if (resultSet.next()) {
+                respuesta = resultSet.getString(1);
+                return respuesta;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
