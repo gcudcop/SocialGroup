@@ -13,7 +13,7 @@ public class Usuario extends Persona {
     private Timestamp fechaBaja;
     private String estadoLogico;
     private Timestamp fechaValidacion;
-    private Usuario sessionUsuario;
+    private int sessionUsuario;
 
     public Usuario() {
         //sessionUsuario = new Usuario();
@@ -76,6 +76,20 @@ public class Usuario extends Persona {
     }
 
     /**
+     * @return the validado
+     */
+    public String getValidado() {
+        return validado;
+    }
+
+    /**
+     * @param validado the validado to set
+     */
+    public void setValidado(String validado) {
+        this.validado = validado;
+    }
+
+    /**
      * @return the fechaRegistro
      */
     public Timestamp getFechaRegistro() {
@@ -118,20 +132,6 @@ public class Usuario extends Persona {
     }
 
     /**
-     * @return the validado
-     */
-    public String getValidado() {
-        return validado;
-    }
-
-    /**
-     * @param validado the validado to set
-     */
-    public void setValidado(String validado) {
-        this.validado = validado;
-    }
-
-    /**
      * @return the fechaValidacion
      */
     public Timestamp getFechaValidacion() {
@@ -148,15 +148,17 @@ public class Usuario extends Persona {
     /**
      * @return the sessionUsuario
      */
-    public Usuario getSessionUsuario() {
+    public int getSessionUsuario() {
         return sessionUsuario;
     }
 
     /**
      * @param sessionUsuario the sessionUsuario to set
      */
-    public void setSessionUsuario(Usuario sessionUsuario) {
+    public void setSessionUsuario(int sessionUsuario) {
         this.sessionUsuario = sessionUsuario;
     }
+
+   
 
 }

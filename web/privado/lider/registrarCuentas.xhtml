@@ -47,7 +47,9 @@
 
                         <f:facet name="footer">
                             <p:commandButton value="Nuevo"
-                                             icon="ui-icon-plus"/>
+                                             icon="ui-icon-plus"
+                                             onclick="PF('dlgInsertar').show()"
+                                             update="frmInsertar"/>
                         </f:facet>
                     </p:dataTable>
                 </h:form>
@@ -59,5 +61,6 @@
             <img src="../../resources/gifs/cargando_2.gif" alt=""/>
         </p:dialog>  
 
+        <ui:include src="dlgRegistrar.xhtml"/>
     </ui:define>
 </ui:composition>
